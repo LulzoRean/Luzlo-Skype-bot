@@ -3,6 +3,7 @@ Imports System.Windows.Threading
 
 Module Funciones
     Public skype As Skype
+
     Dim conteo As Integer = 0
     Public dt As DispatcherTimer = New DispatcherTimer()
     Dim PingIP As New System.Net.NetworkInformation.Ping
@@ -55,11 +56,13 @@ Module Funciones
         result.Add(" ~speak {texto a pronunciar}")
         result.Add(" ~buitrear {victima}")
         result.Add(" ~di {texto}")
+        result.Add(" ~play {-list 'Muestra lista de sonidos' / sonido}")
     End Function
 #End Region
 
 #Region "Ping"
     Public Function ping(ByVal argumento As String)
+
         Try
             Hablar("Haciendo ping")
             RespuestaPing = PingIP.Send(argumento)
@@ -115,12 +118,10 @@ Module Funciones
     Public Function ASpeak(ByVal say As String)
         If skype.ActiveCalls.Count > 0 Then
             Hablar(say)
-
-            result.Add("Speak: " & say)
+            result.Add("")
         Else
             result.Add("No hay llamada en curso, ¿a quien le voy a hablar?")
         End If
-      
     End Function
 #End Region
 
@@ -130,19 +131,22 @@ Module Funciones
             result.Add("¿A quien buitreo?")
             Exit Function
         End If
-        Dim Saludo() As String = {"Hola", "¿Que cuentas?", "¿Como has estado?", "Jelou", _
-                                 "Bonjour", "Buenas"}
-        Dim adj() As String = {"hermosa", "preciosa", "bella", "radiante"}
+        Dim Saludo() As String = {"", "Hola", "¿Que cuentas?", "¿Como has estado?", "Jelou", _
+                                 "Bonjour", "Buenas", ""}
+        Dim adj() As String = {"", "hermosa", "preciosa", "bella", "radiante", "dulce", ""}
 
         Dim frase() As String = {"¿estudias o trabajas?", "¿Como ha estado tu dia?", _
                                  "¿Te puedo decir cosas bellas?", "te he estado esperando todo el dia", _
                                  "Mi corazon late al verte conectada", "tengo que decirte algo en privado", _
-                                 "¿como seria mi vida sin ti?", "mi corazon palpita como una patata frita"}
+                                 "¿como seria mi vida sin ti?", "mi corazon palpita como una patata frita", _
+                                 "Me gustaria verte, mandame una foto", "hoy estas mas hermosa que nunca", _
+                                 "Tengo algo que mostrarte", "Hace rato no me dices cosas bellas", _
+                                 "ven te invito a salir y nos tomamos una cerveza.", "grrrrrrrrr", _
+                                 "y si nos vamos tomados de las manos?", "(mm) (mm) (mm)"}
 
         result.Add(Saludo(CInt(Int((Saludo.Count * Rnd()) + 0))) & _
                           " " & victima & " " & adj(CInt(Int((adj.Count * Rnd()) + 0))) & _
                           ", " & frase(CInt(Int((frase.Count * Rnd()) + 0))) & " " & buitreemote)
-
 
 
 
@@ -166,8 +170,14 @@ Module Funciones
         Dim luzloIA2() As String = {"Estaba pensando justo en lo mismo", _
                                     "Otro dia sera, no se cual, pero sera otro", _
                                     "Estor ebrio no se de que hablan xD", _
-                                    "Sigo rascandome los huevos.... :D", _
-                                   "El buitreo cosmico ha comenzado... "}
+                                    "Sigo rascandome los huevos.... " & niceemote(), _
+                                   "El buitreo cosmico ha comenzado... ", _
+                                    "Estoy aburrido, algo para hacer?" & niceemote(), _
+                                    "Ni idea", _
+                                    "Creo que no me gusta eso", _
+                                    "Creo que esta funcion la programaron mal " & bademote(), _
+                                    "La cerveza ya esta fria! " & niceemote(), _
+                                    "Ya vuelvo, voy a ponerme los pantalones"}
 
         Dim LuzloIA() As String = {"Que pajo?", "Ah?", "Pero dime!", "mmmm ?", _
                                    "Ni me mires, hablale a reisa", "Hola", "y ahora que?", _
@@ -182,5 +192,18 @@ Module Funciones
     End Function
 #End Region
 
+#Region "play"
+    Public Function playsonido(ByVal argumento As String)
+        If skype.ActiveCalls.Count > 0 Then
+            If argumento = "-list" Then
+                result.Add("No hay archivos de sonido indexados")
+            Else
+                result.Add("No se encuentra sonido, funcion sin implementar")
+            End If
+        Else
+            result.Add("No hay llamada en curso, ¿Quien va a escuchar?")
+        End If
+    End Function
+#End Region
 
 End Module

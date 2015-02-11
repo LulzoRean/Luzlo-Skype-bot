@@ -6,7 +6,7 @@
         <ListBox x:Name="LogList" Margin="10,50,10,75"/>
         <Label Content="Registro de eventos:" HorizontalAlignment="Left" Margin="10,19,0,0" VerticalAlignment="Top"/>
         <Label Content="Input:" HorizontalAlignment="Left" Margin="10,0,0,44" VerticalAlignment="Bottom"/>
-        <TextBox Height="23" Margin="55,0,10,44" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.267,0"/>
+        <TextBox x:Name="InputText" Height="23" Margin="55,0,10,44" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.267,0"/>
 
     </Grid>
 </Window>

@@ -38,7 +38,7 @@ Class MainWindow
 
     'Funcion de lectura de mensajes del chat
     Public Sub skype_stat(ByVal msg As ChatMessage, ByVal status As TChatMessageStatus)
-        log(msg.Body & "  -  " & msg.Status)
+
 
         If status = TChatMessageStatus.cmsRead Then 'Comprobacion antiredundancia de lectura
             Return
@@ -53,7 +53,11 @@ Class MainWindow
                 skype.ResetCache()
                 Comandos(comando, msg.Sender.Handle)
                 For i As Integer = 0 To result.Count - 1
-                    msg.Chat.SendMessage(result(i).ToString)
+                    If result(i).ToString = "" Then
+                    Else
+                        msg.Chat.SendMessage(result(i).ToString)
+                        Thread.Sleep(200)
+                    End If
                     'skype.SendMessage(msg.Sender.Handle, result(i).ToString)
                 Next
                 log("Mensaje enviado - " & result(0))
@@ -72,6 +76,9 @@ Class MainWindow
             Try
                 skype.ResetCache()
                 Dim respuesta As String = luzlo(comando)
+                If skype.ActiveCalls.Count > 0 Then
+                    Hablar(respuesta)
+                End If
                 msg.Chat.SendMessage(respuesta)
                 log("Mensaje enviado - " & comando & ": " & respuesta)
             Catch ex As Exception
@@ -80,6 +87,7 @@ Class MainWindow
             End Try
             Exit Sub
         End If
+
 
 
     End Sub
@@ -137,6 +145,9 @@ Class MainWindow
             Case Is = "totalplayers"
                 result.Add("Comando no implementado")
                 Exit Select
+            Case Is = "play"
+                playsonido(argumento)
+                Exit Select
             Case Else
                 'Cuando no encuentra el comando en el select case
                 result.Add("No reconozco ese comando, -list para mostrar los comandos.")
@@ -145,4 +156,8 @@ Class MainWindow
         End Select
         Return result
     End Function
+
+    Private Sub InputText_KeyUp(sender As Object, e As KeyEventArgs) Handles InputText.KeyUp
+
+    End Sub
 End Class
