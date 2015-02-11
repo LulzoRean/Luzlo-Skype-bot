@@ -3,6 +3,7 @@ Imports System.Speech.Synthesis
 Imports SKYPE4COMLib
 Imports System
 Imports System.Threading
+Imports NCalc
 
 Class MainWindow
     Dim TriggerComando As String = "-"
@@ -20,10 +21,13 @@ Class MainWindow
         AddHandler dt.Tick, AddressOf contador
         dt.Interval = (New TimeSpan(0, 0, 1))
         dt.Start()
+
         Try
+
             skype = New Skype
             skype.Attach(7, False)
             AddHandler skype.MessageStatus, AddressOf skype_stat 'Proceso de lectura de chat (attach)
+
         Catch ex As Exception
             log("--ERROR! --" & ex.Message)
             Hablar(ex.Message)
@@ -88,6 +92,20 @@ Class MainWindow
             Exit Sub
         End If
 
+        'Funcion de calculadora
+        If (msg.Body.IndexOf("=") = 0 And status = TChatMessageStatus.cmsReceived) Or (msg.Body.IndexOf("=") = 0 And status = TChatMessageStatus.cmsSending) Then 'And status = TChatMessageStatus.cmsReceived
+            Dim comando As String = msg.Body.Replace("=", "")
+            Try
+                skype.ResetCache()
+                Dim respuesta As String = IgualMath(comando)
+                msg.Chat.SendMessage(respuesta)
+                log("Mensaje enviado - " & comando & ": " & respuesta)
+            Catch ex As Exception
+                log("--ERROR! --" & ex.Message)
+                Hablar("ERROR!! " & ex.Message)
+            End Try
+            Exit Sub
+        End If
 
 
     End Sub

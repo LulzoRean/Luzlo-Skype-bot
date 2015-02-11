@@ -1,5 +1,6 @@
 ﻿Imports System.Speech.Synthesis
 Imports System.Windows.Threading
+Imports NCalc
 
 Module Funciones
     Public skype As Skype
@@ -59,6 +60,7 @@ Module Funciones
         result.Add(" ~play {-list 'Muestra lista de sonidos' / sonido}")
     End Function
 #End Region
+
 
 #Region "Ping"
     Public Function ping(ByVal argumento As String)
@@ -206,4 +208,16 @@ Module Funciones
     End Function
 #End Region
 
+    Public Function IgualMath(ByVal expresion As String)
+        If expresion = "" Then
+            result.Add("Que expresion debo evaluar?")
+        Else
+            Try
+                Dim a As Expression = New Expression(expresion)
+                Return (": " & a.Evaluate().ToString)
+            Catch ex As Exception
+                Return ("Error: " & ex.Message)
+            End Try
+        End If
+    End Function
 End Module
