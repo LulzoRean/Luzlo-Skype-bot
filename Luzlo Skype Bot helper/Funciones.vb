@@ -61,7 +61,7 @@ Module Funciones
     End Function
 #End Region
 
-
+    'Ping Finalizado
 #Region "Ping"
     Public Function ping(ByVal argumento As String)
 
@@ -81,6 +81,7 @@ Module Funciones
     End Function
 #End Region
 
+    'Vida Finalizado
 #Region "vida"
     Public Function vida()
         result.Add("Sigo vivo " & niceemote())
@@ -93,7 +94,7 @@ Module Funciones
         hor = Math.Floor(num / 3600)
         min = Math.Floor((num - hor * 3600) / 60)
         seg = num - (hor * 3600 + min * 60)
-        result.Add(Trim(hor) + " Hora(s), " + Trim(min) + " Minuto(s), " + Trim(seg) + " Segundo(s)")
+        result.Add("Online: " & Trim(hor) + " Hora(s), " + Trim(min) + " Minuto(s), " + Trim(seg) + " Segundo(s)")
 
     End Function
 
@@ -116,6 +117,7 @@ Module Funciones
     End Function
 #End Region
 
+    'Speak Finalizado
 #Region "speak"
     Public Function ASpeak(ByVal say As String)
         If skype.ActiveCalls.Count > 0 Then
@@ -156,6 +158,7 @@ Module Funciones
     End Function
 #End Region
 
+    'Di finalizado
 #Region "Di"
     Public Function decir(ByVal texto As String)
         If texto = "" Then
@@ -167,6 +170,7 @@ Module Funciones
     End Function
 #End Region
 
+    'Luzlo finalizado
 #Region "Luzlo"
     Public Function luzlo(ByVal texto As String)
         Dim luzloIA2() As String = {"Estaba pensando justo en lo mismo", _
@@ -208,6 +212,8 @@ Module Funciones
     End Function
 #End Region
 
+    'Math finalizado
+#Region "Math"
     Public Function IgualMath(ByVal expresion As String)
         If expresion = "" Then
             result.Add("Que expresion debo evaluar?")
@@ -220,4 +226,48 @@ Module Funciones
             End Try
         End If
     End Function
+#End Region
+
+#Region "REINOS -Thalassa , -Aegwynn , -Vulcania"
+    Public Function reinos(ByVal Reino As Integer)
+        Dim Control As String = ReinosInfo()
+        If Control = "OK" Then
+            Dim estado As String
+            If realmstatus(Reino) = 1 Then
+                estado = "Online"
+            Else
+                estado = "Offline"
+            End If
+
+            Select Case Reino
+                Case 0
+                    result.Add("Estado: " & estado)
+                    result.Add("Jugadores Online: " & realmponline(Reino))
+                Case 1
+                    result.Add("Estado: " & estado)
+                    result.Add("Jugadores Online: " & realmponline(Reino))
+                Case 2
+                    result.Add("Estado: " & estado)
+                    result.Add("Jugadores Online: " & realmponline(Reino))
+            End Select
+        Else
+            result.Add("Error al obtener datos del reino")
+        End If
+    End Function
+#End Region
+
+#Region "Total Players"
+    Public Function TotalP()
+        Dim Control As String = ReinosInfo()
+        Dim thalap As Integer = realmponline(0)
+        Dim aep As Integer = realmponline(1)
+        Dim vulcap As Integer = realmponline(2)
+
+        If Control = "OK" Then
+            result.Add("Jugadores Online totales: " & thalap + aep + vulcap)
+        Else
+            result.Add("Error al obtener datos de los reinos")
+        End If
+    End Function
+#End Region
 End Module

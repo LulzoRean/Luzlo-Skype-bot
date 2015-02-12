@@ -9,12 +9,14 @@ Class MainWindow
     Dim TriggerComando As String = "-"
     Dim TriggerSpeech As String = "luzlo"
 
+    
     Public Sub log(ByVal a As String)
         LogList.Items.Add(a)
     End Sub
 
     'Iniciando la aplicacion, funcion de inicio
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
+
         Hablar("Iniciando el bot")
         log("Iniciando el bot")
         'Inicio de proceso API Skype
@@ -37,6 +39,9 @@ Class MainWindow
         'Inicio de Api Exitoso en skype
         log("Skype attach : OK")
         Hablar("Bot iniciado y adherido al proceso")
+        log("Iniciando seccion en WowRean")
+        Dim d As New delegado(AddressOf LoginRean)
+        Me.Dispatcher.Invoke(d)
         Me.WindowState = Windows.WindowState.Minimized
     End Sub
 
@@ -48,8 +53,7 @@ Class MainWindow
             Return
         End If
 
-        log(msg.Body & " Despues -  " & msg.Status)
-
+        ' log(msg.Body & " Despues -  " & msg.Status)
         'Inicio de funcion con Trigger "-"
         If (msg.Body.IndexOf(TriggerComando) = 0 And status = TChatMessageStatus.cmsReceived) Or (msg.Body.IndexOf(TriggerComando) = 0 And status = TChatMessageStatus.cmsSending) Then 'And status = TChatMessageStatus.cmsReceived
             Dim comando As String = msg.Body.Replace(TriggerComando, "").ToLower
@@ -152,16 +156,16 @@ Class MainWindow
                 decir(argumento)
                 Exit Select
             Case Is = "thalassa"
-                result.Add("Comando no implementado")
+                reinos(0)
                 Exit Select
             Case Is = "aegwynn"
-                result.Add("Comando no implementado")
+                reinos(1)
                 Exit Select
             Case Is = "vulcania"
-                result.Add("Comando no implementado")
+                reinos(2)
                 Exit Select
             Case Is = "totalplayers"
-                result.Add("Comando no implementado")
+                TotalP()
                 Exit Select
             Case Is = "play"
                 playsonido(argumento)
