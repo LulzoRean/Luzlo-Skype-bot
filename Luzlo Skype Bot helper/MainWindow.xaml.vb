@@ -91,6 +91,14 @@ Class MainWindow
             If entrante.Contains("http") Or entrante.Contains("Http") Then
                 Exit Sub
             End If
+            If entrante.Contains("cuando") And entrante.Contains("?") Then
+                msg.Chat.SendMessage("Mañana")
+                If skype.ActiveCalls.Count > 0 Then
+                    Hablar("mañana")
+                End If
+                log("Mensaje enviado - Mañana")
+                Exit Sub
+            End If
             Dim comando As String = msg.Body.Replace(TriggerComando, "").ToLower
             Try
                 skype.ResetCache()
