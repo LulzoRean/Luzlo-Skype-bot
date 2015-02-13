@@ -48,6 +48,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AIMLbot">
+      <HintPath>..\..\..\AIMLbot.dll</HintPath>
+    </Reference>
     <Reference Include="NCalc">
       <HintPath>C:\Users\LulzDev\Documents\NCalc.dll</HintPath>
     </Reference>
@@ -161,6 +164,10 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="aiml\" />
+    <Folder Include="config\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

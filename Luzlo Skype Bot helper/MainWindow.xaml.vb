@@ -4,11 +4,11 @@ Imports SKYPE4COMLib
 Imports System
 Imports System.Threading
 Imports NCalc
-
+Imports AIMLbot
 Class MainWindow
     Dim TriggerComando As String = "-"
     Dim TriggerSpeech As String = "luzlo"
-
+   
     
     Public Sub log(ByVal a As String)
         LogList.Items.Add(a)
@@ -19,6 +19,14 @@ Class MainWindow
 
         Hablar("Iniciando el bot")
         log("Iniciando el bot")
+        'BOT
+
+        mybot.loadSettings()
+        mybot.isAcceptingUserInput = False
+        mybot.loadAIMLFromFiles()
+        mybot.isAcceptingUserInput = True
+
+
         'Inicio de proceso API Skype
         AddHandler dt.Tick, AddressOf contador
         dt.Interval = (New TimeSpan(0, 0, 1))
@@ -80,6 +88,9 @@ Class MainWindow
 
         'Inicio de funcion con "Luzlo"
         If (entrante.Contains(TriggerSpeech) And status = TChatMessageStatus.cmsReceived) Or (entrante.Contains(TriggerSpeech) And status = TChatMessageStatus.cmsSending) Then 'And status = TChatMessageStatus.cmsReceived
+            If entrante.Contains("http") Or entrante.Contains("Http") Then
+                Exit Sub
+            End If
             Dim comando As String = msg.Body.Replace(TriggerComando, "").ToLower
             Try
                 skype.ResetCache()

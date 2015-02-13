@@ -1,8 +1,13 @@
 ﻿Imports System.Speech.Synthesis
 Imports System.Windows.Threading
 Imports NCalc
+Imports AIMLbot
+Imports System.Collections.Generic
 
 Module Funciones
+    Public mybot As New Bot
+    Public myuser As New User("Luzlo", mybot)
+
     Public skype As Skype
 
     Dim conteo As Integer = 0
@@ -150,7 +155,7 @@ Module Funciones
 
         result.Add(Saludo(CInt(Int((Saludo.Count * Rnd()) + 0))) & _
                           " " & victima & " " & adj(CInt(Int((adj.Count * Rnd()) + 0))) & _
-                          ", " & frase(CInt(Int((frase.Count * Rnd()) + 0))) & " " & buitreemote)
+                          ", " & frase(CInt(Int((frase.Count * Rnd()) + 0))) & " " & buitreemote())
 
 
 
@@ -173,27 +178,31 @@ Module Funciones
     'Luzlo finalizado
 #Region "Luzlo"
     Public Function luzlo(ByVal texto As String)
-        Dim luzloIA2() As String = {"Estaba pensando justo en lo mismo", _
-                                    "Otro dia sera, no se cual, pero sera otro", _
-                                    "Estor ebrio no se de que hablan xD", _
-                                    "Sigo rascandome los huevos.... " & niceemote(), _
-                                   "El buitreo cosmico ha comenzado... ", _
-                                    "Estoy aburrido, algo para hacer?" & niceemote(), _
-                                    "Ni idea", _
-                                    "Creo que no me gusta eso", _
-                                    "Creo que esta funcion la programaron mal " & bademote(), _
-                                    "La cerveza ya esta fria! " & niceemote(), _
-                                    "Ya vuelvo, voy a ponerme los pantalones"}
+        Dim r As Request = New Request(texto, myuser, mybot)
+        Dim resu As Result = mybot.Chat(r)
+        Return resu.Output
 
-        Dim LuzloIA() As String = {"Que pajo?", "Ah?", "Pero dime!", "mmmm ?", _
-                                   "Ni me mires, hablale a reisa", "Hola", "y ahora que?", _
-                                   "si?"}
+        'Dim luzloIA2() As String = {"Estaba pensando justo en lo mismo", _
+        '                            "Otro dia sera, no se cual, pero sera otro", _
+        '                            "Estor ebrio no se de que hablan xD", _
+        '                            "Sigo rascandome los huevos.... " & niceemote(), _
+        '                           "El buitreo cosmico ha comenzado... ", _
+        '                            "Estoy aburrido, algo para hacer?" & niceemote(), _
+        '                            "Ni idea", _
+        '                            "Creo que no me gusta eso", _
+        '                            "Creo que esta funcion la programaron mal " & bademote(), _
+        '                            "La cerveza ya esta fria! " & niceemote(), _
+        '                            "Ya vuelvo, voy a ponerme los pantalones"}
 
-        If texto.Length > 10 Then
-            Return luzloIA2(CInt(Int((luzloIA2.Count * Rnd()) + 0)))
-        Else
-            Return LuzloIA(CInt(Int((LuzloIA.Count * Rnd()) + 0)))
-        End If
+        'Dim LuzloIA() As String = {"Que pajo?", "Ah?", "Pero dime!", "mmmm ?", _
+        '                           "Ni me mires, hablale a reisa", "Hola", "y ahora que?", _
+        '                           "si?"}
+
+        'If texto.Length > 10 Then
+        '    Return luzloIA2(CInt(Int((luzloIA2.Count * Rnd()) + 0)))
+        'Else
+        '    Return LuzloIA(CInt(Int((LuzloIA.Count * Rnd()) + 0)))
+        'End If
 
     End Function
 #End Region
