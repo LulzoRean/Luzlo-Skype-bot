@@ -9,8 +9,8 @@ Module Rean
     Public tokenhash As String
     Dim Json As String
     Public Delegate Sub delegado()
-    Dim loginuser As String = "killerphantom2"
-    Dim loginpw As String = "lulz94274383"
+    Dim loginuser As String = ""
+    Dim loginpw As String = ""
     Public ApiLogin As String = "http://api.wowrean.es/1.0/LoginData.php"
     Public ApiRealms As String = "http://api.wowrean.es/1.0/RealmStatus.php"
 
