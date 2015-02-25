@@ -262,8 +262,8 @@ Module Funciones
     Public Function reinos(ByVal Reino As Integer)
         Dim Control As String = ReinosInfo()
         Dim ThalaTime As DateTime = CDate(Date.UtcNow.AddHours(-5)) 'Thalassa UTC -5
-        Dim AeTime As DateTime = CDate(Date.UtcNow.AddHours(-6)) 'Aewgynn UTC -6
-        Dim VulcaTime As DateTime = CDate(Date.UtcNow.AddHours(-6)) 'Vulcania UTC -6
+        Dim AeTime As DateTime = CDate(Date.UtcNow.AddHours(+1)) 'Aewgynn UTC +1
+        Dim VulcaTime As DateTime = CDate(Date.UtcNow.AddHours(-5)) 'Vulcania UTC -5
         If Control = "OK" Then
             Dim estado As String
             If realmstatus(Reino) = 1 Then
