@@ -8,10 +8,10 @@ Imports AIMLbot
 Class MainWindow
     Dim TriggerComando As String = "-"
     Dim TriggerSpeech As String = "luzlo"
-   
-    
+
     Public Sub log(ByVal a As String)
         LogList.Items.Add(a)
+        LbRegistro.Content = LogList.Items.Count
     End Sub
 
     'Iniciando la aplicacion, funcion de inicio
@@ -89,6 +89,11 @@ Class MainWindow
         'Inicio de funcion con "Luzlo"
         If (entrante.Contains(TriggerSpeech) And status = TChatMessageStatus.cmsReceived) Or (entrante.Contains(TriggerSpeech) And status = TChatMessageStatus.cmsSending) Then 'And status = TChatMessageStatus.cmsReceived
             If entrante.Contains("http") Or entrante.Contains("Http") Then
+                Exit Sub
+            End If
+            If entrante.Contains("buitreseñal") Then
+                msg.Chat.SendMessage("http://k31.kn3.net/taringa/1/2/3/2/9/6/48/_serialkiller_/92C.gif")
+                log("Mensaje enviado - Buitreseñal")
                 Exit Sub
             End If
             If entrante.Contains("cuando") And entrante.Contains("?") Then
@@ -188,6 +193,21 @@ Class MainWindow
                 Exit Select
             Case Is = "play"
                 playsonido(argumento)
+                Exit Select
+            Case Is = "buscarimg"
+                buscarimg(argumento)
+                Exit Select
+            Case Is = "insultar"
+                insultar(argumento)
+                Exit Select
+            Case Is = "chiste"
+                chiste()
+                Exit Select
+            Case Is = "adv"
+                adv()
+                Exit Select
+            Case Is = "tqd"
+                tqd()
                 Exit Select
             Case Else
                 'Cuando no encuentra el comando en el select case

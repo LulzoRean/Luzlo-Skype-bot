@@ -10,7 +10,7 @@ Module Rean
     Dim Json As String
     Public Delegate Sub delegado()
     Dim loginuser As String = "killerphantom2"
-    Dim loginpw As String = "lulz94274383"
+    Dim loginpw As String = "617de0bb3277d0f94866314cd85537aa"
     Public ApiLogin As String = "http://api.wowrean.es/1.0/LoginData.php"
     Public ApiRealms As String = "http://api.wowrean.es/1.0/RealmStatus.php"
 
@@ -19,6 +19,7 @@ Module Rean
     ''Propiedades Reinos''
     Public realmstatus As New ArrayList
     Public realmponline As New ArrayList
+    Public realmuptime As New ArrayList
     '-------------------------'
 
 #Region "API Rean Login"
@@ -102,19 +103,22 @@ Module Rean
     Public Function ReinosInfo()
         realmstatus.Clear()
         realmponline.Clear()
-        Try
-            Dim JsonPropiedades = New With {Key .Name = "", Key .Exp = "", Key .Build = "", _
+        realmuptime.Clear()
+        Dim JsonPropiedades = New With {Key .Name = "", Key .Exp = "", Key .Build = "", _
                                                Key .ArenaPoints = "", Key .WeeklyQuest = "", _
                                                Key .Status = "", _
-                                               Key .POnline = ""}
+                                               Key .POnline = "", Key .Uptime = ""}
 
+        Try
             Dim PostJson As JArray = JsonConvert.DeserializeObject(apirealmfunction())
+
 
             For i As Integer = 0 To 2
                 Dim JsonItem As String = PostJson(i).ToString
                 Dim JsonArray = JsonConvert.DeserializeAnonymousType(JsonItem, JsonPropiedades)
                 realmstatus.Add(JsonArray.Status)
                 realmponline.Add(JsonArray.POnline)
+                realmuptime.Add(JsonArray.Uptime)
             Next
             Return "OK"
         Catch ex As Exception
