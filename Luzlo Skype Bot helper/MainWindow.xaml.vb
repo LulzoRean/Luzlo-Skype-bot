@@ -97,12 +97,18 @@ Class MainWindow
                 Exit Sub
             End If
             If entrante.Contains("cuando") And entrante.Contains("?") Then
-                msg.Chat.SendMessage("Mañana")
-                If skype.ActiveCalls.Count > 0 Then
-                    Hablar("mañana")
+                If entrante.Contains("gnomo") Then
+                    msg.Chat.SendMessage("Nunca")
+                    Exit Sub
+                Else
+                    msg.Chat.SendMessage("Mañana")
+                    If skype.ActiveCalls.Count > 0 Then
+                        Hablar("mañana")
+                    End If
+                    log("Mensaje enviado - Mañana")
+                    Exit Sub
                 End If
-                log("Mensaje enviado - Mañana")
-                Exit Sub
+               
             End If
             Dim comando As String = msg.Body.Replace(TriggerComando, "").ToLower
             Try
